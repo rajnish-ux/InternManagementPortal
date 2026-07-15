@@ -1,0 +1,74 @@
+import threading
+import time
+
+
+# -------------------------------
+# Thread 1 : Attendance Processing
+# -------------------------------
+
+def attendance_processing():
+
+    print("Attendance Processing Started...\n")
+
+    interns = [
+        "Rajnish Bharod",
+        "Siddhika Pandey",
+        "Rahul Sharma"
+    ]
+
+    for intern in interns:
+        print(f"Attendance marked for {intern}")
+        time.sleep(2)
+
+    print("\nAttendance Processing Completed.\n")
+
+
+# -------------------------------
+# Thread 2 : Certificate Generation
+# -------------------------------
+
+def certificate_generation():
+
+    print("Certificate Generation Started...\n")
+
+    interns = [
+        "Rajnish Bharod",
+        "Siddhika Pandey",
+        "Rahul Sharma"
+    ]
+
+    for intern in interns:
+        print(f"Certificate generated for {intern}")
+        time.sleep(2)
+
+    print("\nCertificate Generation Completed.\n")
+
+
+# -------------------------------
+# Create Threads
+# -------------------------------
+
+attendance_thread = threading.Thread(target=attendance_processing)
+
+certificate_thread = threading.Thread(target=certificate_generation)
+
+
+# -------------------------------
+# Start Threads
+# -------------------------------
+
+attendance_thread.start()
+
+certificate_thread.start()
+
+
+# -------------------------------
+# Wait for Both Threads
+# -------------------------------
+
+attendance_thread.join()
+
+certificate_thread.join()
+
+
+print("\nBoth Threads Finished Successfully.")
