@@ -1,0 +1,30 @@
+from datetime import date
+
+def generate_certificate(name, course):
+    """
+    Generator function that generates one certificate at a time.
+    """
+
+    certificate_text = f"""
+=========================================
+      CERTIFICATE OF COMPLETION
+=========================================
+
+This is to certify that
+
+{name}
+
+has successfully completed the
+
+{course}
+
+Internship Program.
+
+Completion Date : {date.today()}
+
+Congratulations and Best Wishes!
+
+=========================================
+"""
+
+    yield certificate_text
