@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About TESRECO</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            color:#333;
+        }
+
+        /* HEADER */
+
+        header{
+            background:#1e3a8a;
+            color:white;
+            padding:20px;
+        }
+
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            width:90%;
+            margin:auto;
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:bold;
+        }
+
+        nav ul{
+            list-style:none;
+            display:flex;
+            gap:25px;
+        }
+
+        nav ul li a{
+            text-decoration:none;
+            color:white;
+            font-weight:bold;
+        }
+
+        nav ul li a:hover{
+            color:#ffd700;
+        }
+
+        /* HERO SECTION */
+
+        .hero{
+            text-align:center;
+            padding:60px 20px;
+            background:white;
+        }
+
+        .hero h1{
+            color:#1e3a8a;
+            margin-bottom:15px;
+        }
+
+        .hero p{
+            font-size:18px;
+            color:#555;
+        }
+
+        /* SECTIONS */
+
+        section{
+            width:85%;
+            margin:40px auto;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+            margin-bottom:25px;
+        }
+
+        h2{
+            color:#1e3a8a;
+            margin-bottom:15px;
+        }
+
+        p{
+            line-height:1.7;
+        }
+
+        /* DOMAINS */
+
+        .domains{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        .domain-box{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+            box-shadow:0 0 8px rgba(0,0,0,0.1);
+        }
+
+        .domain-box h3{
+            color:#2563eb;
+            margin-bottom:10px;
+        }
+
+        /* FEATURES */
+
+        .features{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        .feature{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 8px rgba(0,0,0,0.1);
+        }
+
+        /* FOOTER */
+
+        footer{
+            background:#1e3a8a;
+            color:white;
+            text-align:center;
+            padding:20px;
+            margin-top:40px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+
+    <div class="navbar">
+
+        <div class="logo">
+            TESRECO Internship Portal
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/login">Login</a></li>
+                
+            </ul>
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h1>About TESRECO Technologies</h1>
+
+    <p>
+        Empowering Future Professionals Through Practical Learning,
+        Innovation and Industry Exposure.
+    </p>
+
+</div>
+
+<!-- ORGANIZATION -->
+
+<section>
+
+    <div class="card">
+
+        <h2>Organization Overview</h2>
+
+        <p>
+            TESRECO Technologies is committed to providing students and
+            young professionals with real-world industry experience through
+            structured internship programs. Our Internship Management Portal
+            helps interns, mentors and administrators collaborate efficiently,
+            track progress and manage internship activities seamlessly.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- MISSION -->
+
+<section>
+
+    <div class="card">
+
+        <h2>Our Mission</h2>
+
+        <p>
+            To bridge the gap between academic learning and industry
+            requirements by providing hands-on training, mentorship and
+            practical project experience.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- VISION -->
+
+<section>
+
+    <div class="card">
+
+        <h2>Our Vision</h2>
+
+        <p>
+            To become a leading platform for nurturing skilled professionals
+            capable of solving real-world business and technology challenges.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- DOMAINS -->
+
+<section>
+
+    <h2>Internship Domains</h2>
+
+    <div class="domains">
+
+        <div class="domain-box">
+            <h3>Data Science</h3>
+            <p>Python, Machine Learning, Data Analysis, Visualization</p>
+        </div>
+
+        <div class="domain-box">
+            <h3>Web Development</h3>
+            <p>HTML, CSS, JavaScript, Flask, APIs</p>
+        </div>
+
+        <div class="domain-box">
+            <h3>AI & ML</h3>
+            <p>Predictive Models, NLP, Deep Learning</p>
+        </div>
+
+        <div class="domain-box">
+            <h3>Cloud Computing</h3>
+            <p>AWS, Azure, Cloud Deployment Solutions</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section>
+
+    <h2>Portal Features</h2>
+
+    <div class="features">
+
+        <div class="feature">
+            <h3>Intern Registration</h3>
+            <p>Register and manage intern profiles.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Attendance Tracking</h3>
+            <p>Maintain daily attendance records.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Mentor Assignment</h3>
+            <p>Assign mentors to guide interns.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Performance Monitoring</h3>
+            <p>Track tasks and evaluate performance.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Report Generation</h3>
+            <p>Create attendance and performance reports.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Certificate Generation</h3>
+            <p>Generate internship completion certificates.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section>
+
+    <div class="card">
+
+        <h2>Contact Information</h2>
+
+        <p><strong>Email:</strong> hr@tesreco.com</p>
+        <p><strong>Phone:</strong> +91 9876543210</p>
+        <p><strong>Address:</strong> TESRECO Technologies, India</p>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 TESRECO Technologies | Internship Management Portal
+    </p>
+
+</footer>
+
+</body>
+</html>
