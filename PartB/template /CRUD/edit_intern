@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Intern | TESRECO Portal</title>
+
+```
+<style>
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Segoe UI',sans-serif;
+    }
+
+    body{
+        background:#f4f7fc;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+        background:#1e3a8a;
+        color:white;
+        padding:18px 40px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .logo{
+        font-size:28px;
+        font-weight:bold;
+    }
+
+    .nav-links a{
+        color:white;
+        text-decoration:none;
+        margin-left:20px;
+        font-weight:500;
+    }
+
+    .nav-links a:hover{
+        color:#ffd700;
+    }
+
+    /* HERO */
+
+    .hero{
+        text-align:center;
+        padding:50px 20px;
+        background:white;
+    }
+
+    .hero h1{
+        color:#1e3a8a;
+        margin-bottom:10px;
+        font-size:38px;
+    }
+
+    .hero p{
+        color:#666;
+        font-size:18px;
+    }
+
+    /* FORM CARD */
+
+    .container{
+        width:90%;
+        max-width:700px;
+        margin:40px auto;
+    }
+
+    .card{
+        background:white;
+        padding:35px;
+        border-radius:15px;
+        box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .intern-id{
+        background:#e8f0ff;
+        color:#1e3a8a;
+        padding:12px;
+        border-radius:8px;
+        margin-bottom:25px;
+        text-align:center;
+        font-weight:bold;
+    }
+
+    .form-group{
+        margin-bottom:20px;
+    }
+
+    label{
+        display:block;
+        margin-bottom:8px;
+        font-weight:600;
+        color:#333;
+    }
+
+    input{
+        width:100%;
+        padding:12px;
+        border:1px solid #ccc;
+        border-radius:8px;
+        font-size:15px;
+    }
+
+    input:focus{
+        outline:none;
+        border-color:#2563eb;
+        box-shadow:0px 0px 5px rgba(37,99,235,0.4);
+    }
+
+    .button-group{
+        display:flex;
+        gap:15px;
+        margin-top:20px;
+    }
+
+    button{
+        flex:1;
+        padding:14px;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:16px;
+        font-weight:bold;
+    }
+
+    .update-btn{
+        background:#10b981;
+        color:white;
+    }
+
+    .update-btn:hover{
+        background:#059669;
+    }
+
+    .cancel-btn{
+        background:#ef4444;
+        color:white;
+        text-decoration:none;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .cancel-btn:hover{
+        background:#dc2626;
+    }
+
+    /* FOOTER */
+
+    footer{
+        margin-top:40px;
+        background:#1e3a8a;
+        color:white;
+        text-align:center;
+        padding:20px;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="logo">
+        TESRECO Portal
+    </div>
+
+    <div class="nav-links">
+        <a href="/home">Home</a>
+    
+        <a href="/add">Add Intern</a>
+        <a href="/view">View Interns</a>
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h1>✏️ Edit Intern Profile</h1>
+
+    <p>
+        Update Intern Information and Maintain Accurate Records
+    </p>
+
+</div>
+
+<!-- FORM -->
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="intern-id">
+            Intern ID : {{ intern[0] }}
+        </div>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>👤 Full Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ intern[1] }}"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>📧 Email Address</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ intern[2] }}"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>💻 Internship Domain</label>
+
+                <input
+                    type="text"
+                    name="domain"
+                    value="{{ intern[3] }}"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>📅 Duration</label>
+
+                <input
+                    type="text"
+                    name="duration"
+                    value="{{ intern[4] }}"
+                    required
+                >
+
+            </div>
+
+            <div class="button-group">
+
+                <button
+                    type="submit"
+                    class="update-btn"
+                >
+                    Update Intern
+                </button>
+
+                <a
+                    href="/view"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <p>
+        © 2026 TESRECO Technologies | Internship Management Portal
+    </p>
+
+</footer>
+```
+
+</body>
+
+</html>
