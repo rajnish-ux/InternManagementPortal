@@ -1,0 +1,85 @@
+import sqlite3
+
+# Connect to database
+conn = sqlite3.connect("interns.db")
+
+# Create cursor
+cursor = conn.cursor()
+
+# Interns Table
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS interns (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    domain TEXT NOT NULL,
+    duration INTEGER
+)
+""")
+
+# Mentors Table
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS mentors (
+    mentor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    specialization TEXT NOT NULL
+)
+        
+""")
+
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS attendance (
+
+    attendance_id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    intern_id INTEGER NOT NULL,
+
+    status TEXT NOT NULL,
+
+    FOREIGN KEY (intern_id)
+    REFERENCES interns(id)
+
+)
+""")
+
+# Create users table
+cursor.execute("""
+   CREATE TABLE IF NOT EXISTS users (
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       username TEXT NOT NULL UNIQUE,
+       password TEXT NOT NULL
+   )
+""")
+
+# Insert admin user (plain text password)
+cursor.execute("INSERT OR IGNORE INTO users (username, password) VALUES (?, ?)", ("admin", "admin123"))
+
+conn.commit()
+
+print("Database ready!")
+
+
+#performance CALCULSTOR table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS performance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    intern_name TEXT,
+    attendance INTEGER,
+    task_completion INTEGER,
+    project_score INTEGER,
+    communication INTEGER,
+    learning INTEGER,
+    final_score REAL,
+    grade TEXT
+)
+""")
+print("Users table created")
+
+
+
+print("Tables created successfully!")
+
+conn.close()
