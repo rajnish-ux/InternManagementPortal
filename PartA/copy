@@ -1,0 +1,64 @@
+import copy
+
+# Original Intern Data
+intern = {
+    "name": "Rajnish Bharod",
+    "course": "Advanced Python",
+    "projects": [
+        "Attendance Module",
+        "Mentor Module",
+        "Performance Module"
+    ]
+}
+
+print("========== ORIGINAL DATA ==========")
+print(intern)
+
+# -----------------------------
+# SHALLOW COPY
+# -----------------------------
+print("\n========== SHALLOW COPY ==========")
+
+shallow_copy = copy.copy(intern)
+
+print("Before Modification")
+print("Original:", intern)
+print("Shallow :", shallow_copy)
+
+# Modify project list
+shallow_copy["projects"].append("Certificate Generator")
+
+print("\nAfter Modification")
+
+print("Original:", intern)
+print("Shallow :", shallow_copy)
+
+# -----------------------------
+# DEEP COPY
+# -----------------------------
+print("\n========== DEEP COPY ==========")
+
+deep_copy = copy.deepcopy(intern)
+
+print("Before Modification")
+print("Original:", intern)
+print("Deep     :", deep_copy)
+
+# Modify project list
+deep_copy["projects"].append("Exception Handling")
+
+print("\nAfter Modification")
+
+print("Original:", intern)
+print("Deep     :", deep_copy)
+
+# -----------------------------
+# EXPLANATION
+# -----------------------------
+print("\n========== RESULT ==========")
+
+print("Shallow Copy shares nested objects.")
+print("So changing the project list changes the original data.")
+
+print("\nDeep Copy creates a completely independent copy.")
+print("Changing the deep copy does not affect the original.")
