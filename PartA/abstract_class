@@ -1,0 +1,54 @@
+from abc import ABC, abstractmethod
+
+# ----------------------------------------
+# Abstract Class
+# ----------------------------------------
+
+class Report(ABC):
+
+    @abstractmethod
+    def generate_report(self):
+        pass
+
+
+# ----------------------------------------
+# Attendance Report Class
+# ----------------------------------------
+
+class AttendanceReport(Report):
+
+    def generate_report(self):
+
+        print("\n========== Attendance Report ==========")
+        print("Intern Name : Rajnish Bharod")
+        print("Attendance  : 95%")
+        print("Status      : Present")
+
+
+# ----------------------------------------
+# Performance Report Class
+# ----------------------------------------
+
+class PerformanceReport(Report):
+
+    def generate_report(self):
+
+        print("\n========== Performance Report ==========")
+        print("Intern Name : Rajnish Bharod")
+        print("Project     : Intern Management Portal")
+        print("Performance : Excellent")
+
+
+# ----------------------------------------
+# Main Program
+# ----------------------------------------
+
+if __name__ == "__main__":
+
+    attendance = AttendanceReport()
+
+    performance = PerformanceReport()
+
+    attendance.generate_report()
+
+    performance.generate_report()
