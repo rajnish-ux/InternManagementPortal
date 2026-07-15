@@ -1,0 +1,50 @@
+class Intern:
+
+    def __init__(self, intern_id, name, email, domain, duration):
+        self.intern_id = intern_id
+        self.name = name
+        self.email = email
+        self.domain = domain
+        self.duration = duration
+
+    # Getters
+    def get_name(self):
+        return self.name
+
+    def get_email(self):
+        return self.email
+
+    # Setters
+    def set_name(self, name):
+        self.name = name
+
+    def set_email(self, email):
+        self.email = email
+
+    # String Representation
+    def __str__(self):
+        return (
+        f"Intern ID : {self.intern_id}\n"
+        f"Name      : {self.name}\n"
+        f"Email     : {self.email}\n"
+        f"Domain    : {self.domain}\n"
+        f"Duration  : {self.duration} months"
+    )
+    
+
+# intern1 = Intern(
+#     1,
+#     "RAJNISH",
+#     "rajnish@gmail.com",
+#     "Data Science",
+#     6
+# )
+
+# print(intern1)
+
+# #using getters and setters
+# print(intern1.get_name())
+
+# intern1.set_name("Khushi") # changing name using setter
+
+# print(intern1.get_name())
