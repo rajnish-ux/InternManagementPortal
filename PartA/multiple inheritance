@@ -1,0 +1,66 @@
+# -------------------------------
+# Parent Class 1
+# -------------------------------
+
+class Person:
+
+    def person_info(self):
+        print("Person Details")
+
+
+# -------------------------------
+# Parent Class 2
+# -------------------------------
+
+class Employee:
+
+    def employee_info(self):
+        print("Employee ID : EMP101")
+
+
+# -------------------------------
+# Parent Class 3
+# -------------------------------
+
+class Mentor:
+
+    def mentor_info(self):
+        print("Mentor Department : Advanced Python")
+
+
+# -------------------------------
+# Child Class (Multiple Inheritance)
+# -------------------------------
+
+class TESRECOMentor(Person, Employee, Mentor):
+
+    def mentor_details(self):
+        print("Mentor Name : Rajnish Bharod")
+        print("Organization : TESRECO")
+        print("Role : Python Mentor")
+
+
+# -------------------------------
+# Object Creation
+# -------------------------------
+
+mentor = TESRECOMentor()
+
+print("========== MULTIPLE INHERITANCE ==========\n")
+
+mentor.person_info()
+
+mentor.employee_info()
+
+mentor.mentor_info()
+
+mentor.mentor_details()
+
+
+# -------------------------------
+# Display Method Resolution Order
+# -------------------------------
+
+print("\n========== METHOD RESOLUTION ORDER ==========\n")
+
+print(TESRECOMentor.__mro__)
