@@ -1,0 +1,152 @@
+import csv
+import os
+
+# CSV File Name
+FILE_NAME = "interns.csv"
+
+# ----------------------------------------
+# Create CSV File
+# ----------------------------------------
+
+def create_file():
+
+    if not os.path.exists(FILE_NAME):
+
+        with open(FILE_NAME, mode="w", newline="") as file:
+
+            writer = csv.writer(file)
+
+            writer.writerow(["Intern ID", "Name", "Email", "Domain"])
+
+# ----------------------------------------
+# Add Record
+# ----------------------------------------
+
+def add_record():
+
+    intern_id = input("Enter Intern ID: ")
+    name = input("Enter Name: ")
+    email = input("Enter Email: ")
+    domain = input("Enter Domain: ")
+
+    with open(FILE_NAME, mode="a", newline="") as file:
+
+        writer = csv.writer(file)
+
+        writer.writerow([intern_id, name, email, domain])
+
+    print("Record Added Successfully.")
+
+# ----------------------------------------
+# Search Record
+# ----------------------------------------
+
+def search_record():
+
+    search_id = input("Enter Intern ID to Search: ")
+
+    found = False
+
+    with open(FILE_NAME, mode="r") as file:
+
+        reader = csv.reader(file)
+
+        next(reader)
+
+        for row in reader:
+
+            if row[0] == search_id:
+
+                print("\nRecord Found")
+
+                print("Intern ID :", row[0])
+                print("Name      :", row[1])
+                print("Email     :", row[2])
+                print("Domain    :", row[3])
+
+                found = True
+
+                break
+
+    if not found:
+
+        print("Record Not Found.")
+
+# ----------------------------------------
+# Delete Record
+# ----------------------------------------
+
+def delete_record():
+
+    delete_id = input("Enter Intern ID to Delete: ")
+
+    records = []
+
+    deleted = False
+
+    with open(FILE_NAME, mode="r") as file:
+
+        reader = csv.reader(file)
+
+        records = list(reader)
+
+    with open(FILE_NAME, mode="w", newline="") as file:
+
+        writer = csv.writer(file)
+
+        for row in records:
+
+            if row[0] != delete_id:
+
+                writer.writerow(row)
+
+            else:
+
+                deleted = True
+
+    if deleted:
+
+        print("Record Deleted Successfully.")
+
+    else:
+
+        print("Record Not Found.")
+
+# ----------------------------------------
+# Menu
+# ----------------------------------------
+
+create_file()
+
+while True:
+
+    print("\n========== INTERN MANAGEMENT ==========")
+
+    print("1. Add Record")
+    print("2. Search Record")
+    print("3. Delete Record")
+    print("4. Exit")
+
+    choice = input("Enter Your Choice: ")
+
+    if choice == "1":
+
+        add_record()
+
+    elif choice == "2":
+
+        search_record()
+
+    elif choice == "3":
+
+        delete_record()
+
+    elif choice == "4":
+
+        print("Thank You!")
+
+        break
+
+    else:
+
+        print("Invalid Choice.")
