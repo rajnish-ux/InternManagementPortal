@@ -1,0 +1,529 @@
+from flask import Flask, request, jsonify, render_template , redirect , url_for , session
+import sqlite3
+
+
+
+
+app = Flask(__name__)
+app.secret_key = "your_secret_key"
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        conn = sqlite3.connect("intern_portal.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT * FROM users WHERE username=? AND password=?",
+            (username, password)
+        )
+
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            session['user'] = username
+            return redirect(url_for('home'))
+        else:
+            return render_template(
+                'login.html',
+                error="Invalid username or password"
+            )
+
+    return render_template('login.html')
+
+
+# ----------------------
+# HOME PAGE
+# ----------------------
+
+@app.route("/home")
+def home():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    return render_template('index.html')
+
+#logout
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('about'))
+
+# ----------------------
+# ABOUT PAGE
+# ----------------------
+
+@app.route("/")
+def about():
+    return render_template("about.html")
+
+from advanced_python.exceptions import InvalidEmailError
+import re
+#----------------------
+# ADD INTERN
+#----------------------
+@app.route("/add", methods=["GET", "POST"])
+def add_intern():
+
+    if request.method == "POST":
+
+        try:
+
+            name = request.form["name"]
+            email = request.form["email"]
+            domain = request.form["domain"]
+            duration = request.form["duration"]
+
+            pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+            if not re.match(pattern, email):
+                raise InvalidEmailError(
+                    "Please enter a valid email address"
+                )
+
+            conn = sqlite3.connect("interns.db")
+            cursor = conn.cursor()
+
+            cursor.execute("""
+            INSERT INTO interns(name,email,domain,duration)
+            VALUES(?,?,?,?)
+            """,
+            (name,email,domain,duration))
+
+            conn.commit()
+
+            
+            conn.close()
+
+            return redirect("/")
+
+        except InvalidEmailError as e:
+
+            return render_template(
+                "add_interns.html",
+                error=str(e),
+                name=name,
+                email=email,
+                domain=domain,
+                duration=duration
+            )
+
+    return render_template(
+        "add_interns.html",
+        error=None,
+        name="",
+        email="",
+        domain="",
+        duration=""
+    )
+
+#----------------------
+# VIEW INTERNS
+#----------------------
+
+@app.route("/view")
+def view_interns():
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM interns")
+
+    interns = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "view_interns.html",
+        interns=interns
+    )
+
+#----------------------
+# EDIT INTERNS
+#----------------------
+
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit_intern(id):
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        email = request.form["email"]
+        domain = request.form["domain"]
+        duration = request.form["duration"]
+
+        cursor.execute("""
+        UPDATE interns
+        SET name=?, email=?, domain=?, duration=?
+        WHERE id=?
+        """, (
+            name,
+            email,
+            domain,
+            duration,
+            id
+        ))
+
+        conn.commit()
+        
+        conn.close()
+
+        return redirect("/view")
+
+    cursor.execute(
+        "SELECT * FROM interns WHERE id=?",
+        (id,)
+    )
+
+    intern = cursor.fetchone()
+
+    conn.close()
+
+    return render_template(
+        "edit_intern.html",
+        intern=intern
+    )
+
+#----------------------
+# DELETE INTERNS
+#----------------------
+
+@app.route("/delete/<int:id>")
+def delete_intern_page(id):
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM interns WHERE id=?",
+        (id,)
+    )
+
+    conn.commit()
+
+    
+    
+    conn.close()
+
+    return redirect("/view")
+
+
+# ----------------------
+# REGISTER INTERN API
+# ----------------------
+
+@app.route("/register", methods=["POST"])
+def register():
+
+    data = request.get_json()
+
+    name = data["name"]
+    email = data["email"]
+    domain = data["domain"]
+    duration = data["duration"]
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO interns(name,email,domain,duration)
+        VALUES(?,?,?,?)
+    """, (name, email, domain, duration))
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({
+        "message": "Intern Registered Successfully"
+    })
+
+# ----------------------
+# VIEW ALL INTERNS
+# ----------------------
+
+@app.route("/interns", methods=["GET"])
+def get_interns():
+
+    import os
+    print(os.path.abspath("interns.db"))
+
+    conn = sqlite3.connect("interns.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM interns")
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    interns = []
+
+    for row in rows:
+        interns.append({
+            "id": row[0],
+            "name": row[1],
+            "email": row[2],
+            "domain": row[3],
+            "duration": row[4]
+        })
+
+
+    return jsonify(interns)
+
+# ----------------------
+# UPDATE INTERN
+# ----------------------
+
+@app.route("/intern/<int:id>", methods=["PUT"])
+def update_intern(id):
+
+    data = request.get_json()
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE interns
+        SET name=?, email=?, domain=?, duration=?
+        WHERE id=?
+    """, (
+        data["name"],
+        data["email"],
+        data["domain"],
+        data["duration"],
+        id
+    ))
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({
+        "message": "Intern Updated Successfully"
+    })
+
+# ----------------------
+# DELETE INTERN
+# ----------------------
+
+@app.route("/intern/<int:id>", methods=["DELETE"])
+def delete_intern(id):
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM interns WHERE id=?",
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({
+        "message": "Intern Deleted Successfully"
+    })
+
+#----------------------
+# DASHBOARD
+#----------------------
+
+@app.route("/dashboard")
+def dashboard():
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    # Total Interns
+    cursor.execute("SELECT COUNT(*) FROM interns")
+    total_interns = cursor.fetchone()[0]
+
+    # Total Domains
+    cursor.execute("SELECT COUNT(DISTINCT domain) FROM interns")
+    total_domains = cursor.fetchone()[0]
+
+    # Total Mentors
+    cursor.execute("SELECT COUNT(*) FROM mentors")
+    total_mentors = cursor.fetchone()[0]
+
+    conn.close()
+
+    return render_template(
+        "dashboard.html",
+        total_interns=total_interns,
+        total_domains=total_domains,
+        total_mentors=total_mentors
+    )
+
+#----------------------
+# MENTORS
+#----------------------
+
+@app.route("/mentors")
+def mentors():
+    return render_template("mentors.html")
+
+@app.route("/add_mentor", methods=["POST"])
+def add_mentor():
+
+    name = request.form["name"]
+    specialization = request.form["specialization"]
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO mentors
+        (name, specialization)
+        VALUES (?, ?)
+        """,
+        (name, specialization)
+    )
+
+    conn.commit()
+
+    conn.close()
+
+    return redirect("/mentors")
+
+
+#----------------------
+# ATTENDANCE
+#----------------------
+
+@app.route("/attendance")
+def attendance():
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT id,name FROM interns"
+    )
+
+    interns = cursor.fetchall()
+    
+    cursor.execute("SELECT * FROM attendance")
+    attendance_records = cursor.fetchall()
+
+    print("Attendance Records:")
+    print(attendance_records)
+    conn.close()
+
+    return render_template(
+    "attendance.html",
+    interns=interns,
+    attendance_records=attendance_records
+    )
+    
+
+@app.route(
+    "/mark_attendance",
+    methods=["POST"]
+)
+def mark_attendance():
+
+    intern_id = request.form["intern_id"]
+    status = request.form["status"]
+
+    conn = sqlite3.connect("interns.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO attendance
+        (intern_id,status)
+        VALUES (?,?)
+        """,
+        (
+            intern_id,
+            status
+        )
+    )
+
+    conn.commit()
+
+    conn.close()
+
+    return redirect("/attendance")
+
+
+
+@app.route('/user_details', methods=['GET','POST'])
+def user_details():
+    if request.method == 'POST':
+        name = request.form['name']
+        return f'hello {name} !!'
+    return render_template('user.html')
+
+
+#calculator path
+@app.route("/performance", methods=["GET", "POST"])
+def performance():
+
+    if request.method == "POST":
+
+        intern_name = request.form["intern_name"]
+
+        attendance = int(request.form["attendance"])
+
+        task_completion = int(request.form["task_completion"])
+
+        project_score = int(request.form["project_score"])
+
+        communication = int(request.form["communication"])
+
+        learning = int(request.form["learning"])
+
+        final_score = (
+            attendance +
+            task_completion +
+            project_score +
+            communication +
+            learning
+        ) / 5
+
+        return f"Final Score = {final_score}"
+
+    return render_template("performance.html")
+#certificate path
+
+from advanced_python.certificate import generate_certificate
+@app.route("/certificate", methods=["GET", "POST"])
+def certificate_page():
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        course = request.form["course"]
+
+        generator = generate_certificate(name, course)
+        certificate_text = next(generator)
+
+        return render_template(
+            "certificate.html",
+            certificate=certificate_text
+        )
+
+    return render_template("certificate.html")
+#report path
+
+
+
+
+
+
+# ----------------------
+# RUN APP
+# ----------------------
+
+if __name__ == "__main__":
+    app.run(debug=True)
