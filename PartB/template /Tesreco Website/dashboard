@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <style>
+
+        body{
+            font-family:Segoe UI;
+            background:#f4f7fc;
+            margin:0;
+        }
+
+        .navbar{
+            background:white;
+            padding:20px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar a{
+            text-decoration:none;
+            margin-right:20px;
+            color:#1e3a8a;
+            font-weight:bold;
+        }
+
+        .title{
+            text-align:center;
+            margin-top:40px;
+        }
+
+        .cards{
+            width:90%;
+            margin:40px auto;
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h2{
+            color:#1e3a8a;
+        }
+
+        .card p{
+            font-size:40px;
+            font-weight:bold;
+            color:#2563eb;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="/home">Home</a>
+   
+    <a href="/add">Add Intern</a>
+    <a href="/view">View Interns</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/performance">
+    Performance Management
+</a>
+<a href="/certificate">Certificate Generator</a>
+
+</div>
+
+<div class="title">
+
+    <h1>TESRECO Dashboard</h1>
+
+    <p>Internship Management Statistics</p>
+
+</div>
+
+<div class="cards">
+
+    <div class="card">
+
+        <h2>Total Interns</h2>
+
+        <p>{{ total_interns }}</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Total Domains</h2>
+
+        <p>{{ total_domains }}</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Total Mentors</h2>
+
+        <p>{{ total_mentors }}</p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
