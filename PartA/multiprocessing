@@ -1,0 +1,50 @@
+from multiprocessing import Process
+import time
+
+
+# -----------------------------------
+# Function to Generate Performance Report
+# -----------------------------------
+
+def generate_report(intern_name):
+
+    print(f"Generating Performance Report for {intern_name}...")
+
+    time.sleep(3)
+
+    print(f"Performance Report Generated for {intern_name}")
+
+
+# -----------------------------------
+# Main Program
+# -----------------------------------
+
+if __name__ == "__main__":
+
+    interns = [
+        "Rajnish Bharod",
+        "Siddhika Pandey",
+        "Rahul Sharma"
+    ]
+
+    processes = []
+
+    # Create a process for each intern
+    for intern in interns:
+
+        process = Process(
+            target=generate_report,
+            args=(intern,)
+        )
+
+        processes.append(process)
+
+    # Start all processes
+    for process in processes:
+        process.start()
+
+    # Wait for all processes to finish
+    for process in processes:
+        process.join()
+
+    print("\nAll Performance Reports Generated Successfully.")
