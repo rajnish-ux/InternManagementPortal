@@ -1,0 +1,164 @@
+import sqlite3
+
+# ----------------------------------------
+# Connect to SQLite Database
+# ----------------------------------------
+
+connection = sqlite3.connect("tesreco.db")
+
+cursor = connection.cursor()
+
+# ----------------------------------------
+# Create Interns Table
+# ----------------------------------------
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS Interns(
+    intern_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    domain TEXT NOT NULL
+)
+""")
+
+# ----------------------------------------
+# Create Mentors Table
+# ----------------------------------------
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS Mentors(
+    mentor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    specialization TEXT NOT NULL
+)
+""")
+
+connection.commit()
+
+# ----------------------------------------
+# CREATE (Insert Data)
+# ----------------------------------------
+
+def add_intern(name, email, domain):
+
+    cursor.execute(
+        "INSERT INTO Interns(name,email,domain) VALUES(?,?,?)",
+        (name, email, domain)
+    )
+
+    connection.commit()
+
+    print("Intern Added Successfully")
+
+
+def add_mentor(name, specialization):
+
+    cursor.execute(
+        "INSERT INTO Mentors(name,specialization) VALUES(?,?)",
+        (name, specialization)
+    )
+
+    connection.commit()
+
+    print("Mentor Added Successfully")
+
+
+# ----------------------------------------
+# READ
+# ----------------------------------------
+
+def view_interns():
+
+    print("\n------ Intern List ------")
+
+    cursor.execute("SELECT * FROM Interns")
+
+    records = cursor.fetchall()
+
+    for record in records:
+        print(record)
+
+
+def view_mentors():
+
+    print("\n------ Mentor List ------")
+
+    cursor.execute("SELECT * FROM Mentors")
+
+    records = cursor.fetchall()
+
+    for record in records:
+        print(record)
+
+
+# ----------------------------------------
+# UPDATE
+# ----------------------------------------
+
+def update_intern(intern_id, domain):
+
+    cursor.execute(
+        "UPDATE Interns SET domain=? WHERE intern_id=?",
+        (domain, intern_id)
+    )
+
+    connection.commit()
+
+    print("Intern Updated Successfully")
+
+
+# ----------------------------------------
+# DELETE
+# ----------------------------------------
+
+def delete_intern(intern_id):
+
+    cursor.execute(
+        "DELETE FROM Interns WHERE intern_id=?",
+        (intern_id,)
+    )
+
+    connection.commit()
+
+    print("Intern Deleted Successfully")
+
+
+# ----------------------------------------
+# Main Program
+# ----------------------------------------
+
+if __name__ == "__main__":
+
+    add_intern(
+        "Rajnish Bharod",
+        "rajnish@gmail.com",
+        "Advanced Python"
+    )
+
+    add_intern(
+        "Siddhika Pandey",
+        "siddhika@gmail.com",
+        "Data Science"
+    )
+
+    add_mentor(
+        "Amit Sharma",
+        "Python"
+    )
+
+    view_interns()
+
+    view_mentors()
+
+    update_intern(
+        1,
+        "Machine Learning"
+    )
+
+    view_interns()
+
+    delete_intern(2)
+
+    view_interns()
+
+    connection.close()
