@@ -1,0 +1,67 @@
+import logging
+from datetime import datetime
+
+# ----------------------------------------
+# Configure Logging
+# ----------------------------------------
+
+logging.basicConfig(
+    filename="tesreco.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# ----------------------------------------
+# Login Event
+# ----------------------------------------
+
+def user_login(username):
+
+    logging.info(f"User '{username}' logged in successfully.")
+
+    print(f"{username} logged in.")
+
+
+# ----------------------------------------
+# Error Event
+# ----------------------------------------
+
+def show_error():
+
+    try:
+
+        number = 10 / 0
+
+    except ZeroDivisionError as error:
+
+        logging.error(f"Error Occurred : {error}")
+
+        print("Error Logged Successfully.")
+
+
+# ----------------------------------------
+# Performance Report Generation
+# ----------------------------------------
+
+def generate_report(intern_name):
+
+    logging.info(f"Performance Report Generated for {intern_name}")
+
+    print(f"Report Generated for {intern_name}")
+
+
+# ----------------------------------------
+# Main Program
+# ----------------------------------------
+
+if __name__ == "__main__":
+
+    user_login("Rajnish Bharod")
+
+    show_error()
+
+    generate_report("Rajnish Bharod")
+
+    generate_report("Siddhika Pandey")
+
+    print("\nCheck tesreco.log file.")
