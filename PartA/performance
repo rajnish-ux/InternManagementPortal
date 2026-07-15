@@ -1,0 +1,63 @@
+class PerformanceCalculator:
+    def __init__(self, attendance, task_completion,
+                 project_score, communication, learning):
+        self.attendance = attendance
+        self.task_completion = task_completion
+        self.project_score = project_score
+        self.communication = communication
+        self.learning = learning
+
+    def calculate_score(self):
+        score = (
+            self.attendance * 0.15 +
+            self.task_completion * 0.25 +
+            self.project_score * 0.35 +
+            self.communication * 0.10 +
+            self.learning * 0.15
+        )
+        return round(score, 2)
+
+    def get_grade(self):
+        score = self.calculate_score()
+
+        if score >= 90:
+            return "A+"
+        elif score >= 80:
+            return "A"
+        elif score >= 70:
+            return "B"
+        elif score >= 60:
+            return "C"
+        else:
+            return "Needs Improvement"
+
+    def get_performance_report(self):
+        score = self.calculate_score()
+        grade = self.get_grade()
+
+        return {
+            "Final Score": score,
+            "Grade": grade,
+            "Attendance": self.attendance,
+            "Task Completion": self.task_completion,
+            "Project Score": self.project_score,
+            "Communication": self.communication,
+            "Learning": self.learning
+        }
+
+
+# Example Usage
+
+intern = PerformanceCalculator(
+    attendance=92,
+    task_completion=88,
+    project_score=95,
+    communication=85,
+    learning=90
+)
+
+report = intern.get_performance_report()
+
+print("\n===== INTERN PERFORMANCE REPORT =====")
+for key, value in report.items():
+    print(f"{key}: {value}")
